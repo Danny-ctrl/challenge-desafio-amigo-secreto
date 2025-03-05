@@ -1,14 +1,19 @@
 let nomeAmigos = [];
 
+
 function adicionarNomeAmigo(){
   let adicionar = document.getElementById("amigo");
-  let nome = adicionar.value.trim();
-  
+  let nome = adicionar.value.trim().toLowerCase();
+  let regex = /^[a-zA-Z]+$/;
 
   if(nome == ""){
     alert("Por favor, insira um nome.");
     return;
-  
+
+  }
+  if(!regex.test(nome)){
+    alert("Por favor,insira apenas letras no nome.");
+    return;
   }
   if(nomeAmigos.includes(nome)){
     alert("Este nome já foi adicionado");
@@ -18,7 +23,9 @@ function adicionarNomeAmigo(){
   console.log(nomeAmigos);
   limparCampo();
   exibirListaAmigos();
+  
 }
+
 
 function limparCampo(){
 let limpar = document.getElementById("amigo");
@@ -35,3 +42,31 @@ nomeAmigos.forEach((nome)=>{
   lista.appendChild(itemNome);
 });
 }
+document.getElementById("sortear").addEventListener("click", gerarNomeAleatorio);
+
+function gerarNomeAleatorio(){
+  if(nomeAmigos.length <2){
+    alert("Você precisa de pelo menos 2 nomes de amigos para sortear");
+    return;
+  }
+
+  if(nomeAmigos.length == 0){
+    alert("A lista está vazia!Adcione nomes antes de sortear");
+    return;
+  }
+
+  let nomeAleatorio = Math.floor(Math.random()* nomeAmigos.length);
+  let nomeSorteado = nomeAmigos[nomeAleatorio];
+  let exibirNomeEscolhido = document.getElementById("resultado");
+  exibirNomeEscolhido.innerHTML = `O nome sorteado foi ${nomeSorteado}`;
+
+  nomeAmigos.splice(nomeAleatorio,1);
+  exibirListaAmigos();
+
+  document.getElementById("amigo").disabled = true;
+  document.querySelector(".button-add").disabled = true;
+
+}
+
+
+
