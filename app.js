@@ -63,8 +63,8 @@ function gerarNomeAleatorio(){
   nomeAmigos.splice(nomeAleatorio,1);
   exibirListaAmigos();
 
-  document.getElementById("amigo").disabled = true;
-  document.querySelector(".button-add").disabled = true;
+  
+  
 
 }
 
